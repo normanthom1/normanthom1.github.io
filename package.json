@@ -16,8 +16,7 @@
     "lint": "eslint \"**/*.js\"",
     "predeploy": "npm run build && react-snap",
     "start": "react-scripts start",
-    "test": "npx jest",
-    "deploy": "gh-pages -d build"
+    "test": "npx jest"
   },
   "dependencies": {
     "@arcgis/core": "^4.30.9",
