@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map with Bookmarks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+        }
+        .city-info img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-lg-3 p-3 bg-light" id="sidebar">
+                <h2 class="h4">City Information</h2>
+                <div id="info" class="mb-3"></div>
+                <button class="btn btn-primary w-100 mb-2" onclick="zoomToCity('Salamanca')">Salamanca</button>
+                <button class="btn btn-primary w-100 mb-2" onclick="zoomToCity('Granada')">Granada</button>
+                <button class="btn btn-primary w-100 mb-2" onclick="zoomToCity('Madrid')">Madrid</button>
+                <button class="btn btn-primary w-100 mb-2" onclick="zoomToCity('Wellington')">Wellington</button>
+                <button class="btn btn-primary w-100 mb-2" onclick="zoomToCity('Medellin')">Medellín</button>
+                <button class="btn btn-primary w-100 mb-2" onclick="zoomToCity('Los Angeles')">Los Angeles</button>
+            </div>
+            <div class="col-md-8 col-lg-9" id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([40.4168, -3.7038], 5); // Default to Madrid
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // City data
+        var cities = {
+            "Salamanca": { coords: [40.9704, -5.6635], info: "Salamanca is known for its ornate sandstone architecture and the historic University of Salamanca.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/68436-Salamanca_%2849093713952%29_edited.jpg/1280px-68436-Salamanca_%2849093713952%29_edited.jpg" },
+            "Granada": { coords: [37.1773, -3.5986], info: "Granada is famous for its Alhambra, a sprawling hilltop fortress complex.", image: "path/to/granada.jpg" },
+            "Madrid": { coords: [40.4168, -3.7038], info: "Madrid is Spain's central capital, known for its royal palace and Prado museum.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Palaciorealycatedraldelaalmudena_retouched.jpg/1280px-Palaciorealycatedraldelaalmudena_retouched.jpg" },
+            "Wellington": { coords: [-41.2865, 174.7762], info: "Wellington is the capital of New Zealand, known for its windy weather and vibrant culture.", image: "path/to/wellington.jpg" },
+            "Medellin": { coords: [6.2442, -75.5812], info: "Medellín is known as the 'City of Eternal Spring' due to its pleasant weather.", image: "https://scontent.fwlg4-1.fna.fbcdn.net/v/t31.18172-8/812810_482416441816845_1179692687_o.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=YwLmlr1B2DQQ7kNvgGePEZS&_nc_ht=scontent.fwlg4-1.fna&oh=00_AYDEJECcNmpsZnbDRxyHjh5m4Hs6Vvu4AtA90mugFQDFoQ&oe=66EFEA06" },
+            "Los Angeles": { coords: [34.0522, -118.2437], info: "Los Angeles is known for its Mediterranean climate, ethnic diversity, and the entertainment industry.", image: "path/to/losangeles.jpg" }
+        };
+
+        // Function to zoom to city and display info
+        function zoomToCity(cityName) {
+            var city = cities[cityName];
+            map.setView(city.coords, 10);
+            document.getElementById('info').innerHTML = `
+                <div class="city-info">
+                    <h5>${cityName}</h5>
+                    <p>${city.info}</p>
+                    <img src="${city.image}" alt="${cityName}">
+                </div>
+            `;
+        }
+
+        // Example bookmark default view
+        zoomToCity('Madrid'); // Default to Madrid on page load
+    </script>
+</body>
+</html>
