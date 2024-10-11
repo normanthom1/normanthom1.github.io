@@ -27,7 +27,6 @@ jobs:
     environment:
       name: github-pages
       url: "https://github.com/normanthom1/normanthom1.github.io"
-      #${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-20.04
     timeout-minutes: 10
     steps:
